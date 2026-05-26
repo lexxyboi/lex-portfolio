@@ -137,7 +137,6 @@ section {
 .name-hover {
   position: relative;
   display: inline-block;
-  cursor: pointer;
 }
 .name-placeholder {
   opacity: 0; /* Keeps the document layout and sizing intact */
@@ -196,6 +195,212 @@ section {
     left: 110%;
     opacity: 0;
   }
+}
+
+/* About Section Background Sweep */
+#about {
+  position: relative;
+  z-index: 1; /* Creates a stacking context */
+  overflow: hidden; /* Keeps the sweeping line inside the section */
+  transition: padding 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+#about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #2b2d42; /* Dark slate */
+  z-index: -1;
+  clip-path: polygon(0 0, 0 0, -20% 100%, -20% 100%);
+  transition: clip-path 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+#about p {
+  transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* About Me Hover Effect */
+.about-heading {
+  display: inline-block;
+  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+#about:hover {
+  padding: 6.5rem 5%; /* Extends section size smoothly */
+}
+
+#about:hover .about-heading {
+  transform: scale(2.5);
+}
+#about:hover::before {
+  clip-path: polygon(0 0, 120% 0, 100% 100%, -20% 100%);
+}
+#about:hover p {
+  color: #faf9f6; /* Changes paragraph text to light color */
+  transform: translateY(2.5rem); /* Moves the text down smoothly */
+}
+#about:hover .about-heading .name-original {
+  clip-path: polygon(120% 0, 100% 0, 100% 100%, 100% 100%);
+}
+#about:hover .about-heading .name-reveal {
+  clip-path: polygon(0 0, 120% 0, 100% 100%, -20% 100%);
+}
+
+/* Opportunity Text Crossfade */
+.opportunity-text {
+  position: relative;
+  display: inline-block;
+}
+.opp-placeholder {
+  opacity: 0;
+}
+.opp-original,
+.opp-reveal {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+  transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.opp-original {
+  color: inherit;
+  clip-path: polygon(0 0, 120% 0, 100% 100%, -20% 100%);
+}
+.opp-reveal {
+  font-family: "Sedgwick Ave Display", cursive;
+  font-weight: normal;
+  font-size: 1.2em;
+  color: #e5989b;
+  opacity: 0;
+  clip-path: polygon(0 0, 0 0, -20% 100%, -20% 100%);
+}
+#about:hover .opp-original {
+  opacity: 0;
+  clip-path: polygon(120% 0, 100% 0, 100% 100%, 100% 100%);
+}
+#about:hover .opp-reveal {
+  opacity: 1;
+  clip-path: polygon(0 0, 120% 0, 100% 100%, -20% 100%);
+}
+
+/* Projects Section Sweep & Hover */
+#projects {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: padding 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+#projects::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #2b2d42;
+  z-index: -1;
+  clip-path: polygon(120% 0, 120% 0, 100% 100%, 100% 100%);
+  transition: clip-path 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+#projects:hover {
+  padding: 6.5rem 5%;
+}
+#projects:hover::before {
+  clip-path: polygon(0 0, 120% 0, 100% 100%, -20% 100%);
+}
+
+/* Enlarge Heading into Background */
+.projects-heading {
+  display: inline-block;
+  white-space: nowrap; /* Prevents text from breaking lines while scaling */
+  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+  pointer-events: none; /* Stops the giant text from blocking card clicks */
+  position: relative;
+  z-index: 0;
+}
+.projects-placeholder {
+  opacity: 0;
+}
+.projects-original,
+.projects-reveal {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+  transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.projects-original {
+  color: inherit;
+  clip-path: polygon(0 0, 120% 0, 100% 100%, -20% 100%);
+}
+.projects-reveal {
+  color: #e5989b;
+  font-family: "Sedgwick Ave Display", cursive;
+  font-weight: normal;
+  opacity: 0;
+  clip-path: polygon(120% 0, 120% 0, 100% 100%, 100% 100%);
+}
+#projects:hover .projects-heading {
+  transform: scale(8) translateY(15%);
+}
+#projects:hover .projects-original {
+  opacity: 0;
+  clip-path: polygon(0 0, 0 0, -20% 100%, -20% 100%);
+}
+#projects:hover .projects-reveal {
+  opacity: 0.15;
+  clip-path: polygon(0 0, 120% 0, 100% 100%, -20% 100%);
+}
+
+/* Scalable Projects Grid */
+.projects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 2; /* Keeps cards above the giant background text */
+}
+
+/* Project Cards (Scalable Tiles) */
+.project-card {
+  border: 2px solid #2b2d42;
+  border-radius: 1.5rem;
+  padding: 1.5rem 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #2b2d42;
+  transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  max-width: 100%;
+}
+.project-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.project-desc {
+  font-size: 1rem;
+  font-weight: 400;
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+#projects:hover .project-card {
+  border-color: #faf9f6;
+  color: #faf9f6;
+}
+#projects:hover .project-card:hover {
+  background: #e5989b;
+  color: #2b2d42;
+  border-color: #e5989b;
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+#projects:hover .project-card:hover .project-desc {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 1rem;
 }
 
 footer {
